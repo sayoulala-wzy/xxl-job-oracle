@@ -1,0 +1,13 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wzy.schedule.mapper.TestMapper">
+
+    <select id="getAll" resultType="map">
+       select * from xxl_job_user
+    </select>
+
+    <select id="getBaseAll" resultType="map">
+        select  * from LH_SCHEDULE
+    </select>
+
+</mapper>

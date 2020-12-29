@@ -1,0 +1,70 @@
+spring:
+  redis:
+    remote: false        #cachecloud 获取
+    host: 42.192.148.177
+    password: sayoulala
+    port: 6666
+    timeout: 0
+    database: 0
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 30
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          username: sayoulala
+          password: sayoulala
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://42.192.148.177:3306/xxl_job?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+        basic:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@192.168.21.245:1521/orcl
+          username: AMBASE_BASIC
+          password: AMBASE_BASIC
+        tunxunyun_oracle:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@42.192.148.177:1521/orcl
+          username: AMBASE_HDR
+          password: AMBASE_HDR
+
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+
+
+logging:
+  config: classpath:logback.xml
+  level:
+    cc.wzy.schedule: debug
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    #      addresses: http://42.192.148.177:8080/xxl-job-admin
+    executor:
+      appname: wzy-schedule-job
+      ip:
+      port: 8888
+      logpath: E:/data/applogs/xxl-job/wzy-schedule-job
+      logretentiondays: 10
+      address:
+    accessToken:
